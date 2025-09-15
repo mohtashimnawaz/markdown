@@ -23,7 +23,7 @@
 </head>
 <body>
     <div class="back-link">
-        <a href="/">← Back to Blog</a>
+        <a href="/">← Back to Blog</a> | <a href="/about">About</a> | <a href="/search">Search</a>
     </div>
     
     <h1>{{ post.frontmatter.title }}</h1>
@@ -33,7 +33,9 @@
         {% if post.frontmatter.tags %}
         <div style="margin-top: 10px;">
             {% for tag in post.frontmatter.tags %}
-            <span class="tag">{{ tag }}</span>
+            <a href="/search?tag={{ tag }}" style="text-decoration: none; color: inherit;">
+                <span class="tag">{{ tag }}</span>
+            </a>
             {% endfor %}
         </div>
         {% endif %}

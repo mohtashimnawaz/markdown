@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Markdown Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .about-content { line-height: 1.6; }
+        .tech-stack { background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .tech-stack h3 { margin-top: 0; color: #495057; }
+        .tech-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .tech-item { background: #007bff; color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.9em; }
+        .back-link { margin-bottom: 20px; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .feature-list { list-style-type: none; padding: 0; }
+        .feature-list li { padding: 8px 0; border-bottom: 1px solid #eee; }
+        .feature-list li:before { content: "✓ "; color: #28a745; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="back-link">
+        <a href="/">← Back to Blog</a> | <strong>About</strong> | <a href="/search">Search</a>
+    </div>
+    
+    <h1>About This Blog</h1>
+    
+    <div class="about-content">
+        <p>Welcome to my Markdown blog! This is a lightweight, fast, and modern blog engine built with Rust and designed for developers who love writing in Markdown.</p>
+        
+        <h2>Features</h2>
+        <ul class="feature-list">
+            <li>Markdown-to-HTML conversion with YAML frontmatter</li>
+            <li>Hot reload - changes to content files are automatically detected</li>
+            <li>Fast static file serving</li>
+            <li>Responsive HTML templates</li>
+            <li>Tag support for organizing posts</li>
+            <li>Clean, minimal design focused on readability</li>
+        </ul>
+        
+        <div class="tech-stack">
+            <h3>🛠️ Tech Stack</h3>
+            <p>This blog is built with modern Rust technologies:</p>
+            <div class="tech-list">
+                <span class="tech-item">Rust</span>
+                <span class="tech-item">Actix-web</span>
+                <span class="tech-item">Pulldown-cmark</span>
+                <span class="tech-item">Tera Templates</span>
+                <span class="tech-item">Serde</span>
+                <span class="tech-item">Notify (File watching)</span>
+            </div>
+        </div>
+        
+        <h2>Why Rust?</h2>
+        <p>Rust provides memory safety, blazing fast performance, and excellent tooling. This blog engine can handle thousands of concurrent requests while using minimal system resources.</p>
+        
+        <h2>Getting Started</h2>
+        <p>To add a new post, simply create a <code>.md</code> file in the <code>content/</code> directory with YAML frontmatter:</p>
+        <pre style="background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto;">---
+title: "My New Post"
+date: "2025-09-15"
+tags: ["example", "blog"]
+---
+
+# Your content here!
+
+Write your blog post in **Markdown** format.</pre>
+        
+        <p>The blog will automatically detect the new file and make it available immediately!</p>
+    </div>
+</body>
+</html>

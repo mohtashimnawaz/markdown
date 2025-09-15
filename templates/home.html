@@ -20,6 +20,10 @@
 <body>
     <h1>My Markdown Blog</h1>
     
+    <nav style="margin-bottom: 30px;">
+        <strong>Home</strong> | <a href="/about">About</a> | <a href="/search">Search</a>
+    </nav>
+    
     {% if posts %}
     <ul class="post-list">
         {% for post in posts %}
@@ -31,7 +35,9 @@
             {% if post.frontmatter.tags %}
             <div class="post-tags">
                 {% for tag in post.frontmatter.tags %}
-                <span class="tag">{{ tag }}</span>
+                <a href="/search?tag={{ tag }}" style="text-decoration: none; color: inherit;">
+                    <span class="tag">{{ tag }}</span>
+                </a>
                 {% endfor %}
             </div>
             {% endif %}

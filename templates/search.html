@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Markdown Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .search-form { background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .search-input { width: 100%; max-width: 400px; padding: 10px; border: 1px solid #ddd; border-radius: 3px; margin-right: 10px; }
+        .search-select { padding: 10px; border: 1px solid #ddd; border-radius: 3px; margin: 10px 10px 10px 0; }
+        .search-button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 3px; cursor: pointer; }
+        .search-button:hover { background: #0056b3; }
+        .search-info { color: #666; margin: 20px 0; }
+        .post-list { list-style: none; padding: 0; }
+        .post-item { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .post-title { margin: 0 0 10px 0; }
+        .post-date { color: #666; font-size: 0.9em; }
+        .post-tags { margin-top: 10px; }
+        .tag { background: #e0e0e0; padding: 3px 8px; margin: 2px; border-radius: 3px; font-size: 0.8em; }
+        .tag-link { text-decoration: none; color: inherit; }
+        .tag-link:hover { background: #d0d0d0; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        nav { margin-bottom: 30px; }
+        .clear-filters { margin-left: 10px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> | <a href="/about">About</a> | <strong>Search</strong>
+    </nav>
+    
+    <h1>Search Posts</h1>
+    
+    <div class="search-form">
+        <form method="get" action="/search">
+            <div style="margin-bottom: 15px;">
+                <input type="text" name="q" placeholder="Search posts..." 
+                       value="{% if search_query %}{{ search_query }}{% endif %}" class="search-input">
+                <button type="submit" class="search-button">Search</button>
+            </div>
+            
+            <div>
+                <label for="tag-filter">Filter by tag:</label>
+                <select name="tag" id="tag-filter" class="search-select">
+                    <option value="">All tags</option>
+                    {% for tag in all_tags %}
+                    <option value="{{ tag }}" {% if selected_tag == tag %}selected{% endif %}>{{ tag }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="search-button">Filter</button>
+                {% if search_query or selected_tag %}
+                <a href="/search" class="clear-filters">Clear all filters</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    
+    {% if search_query or selected_tag %}
+    <div class="search-info">
+        {% if search_query and selected_tag %}
+        Showing results for "<strong>{{ search_query }}</strong>" tagged with "<strong>{{ selected_tag }}</strong>" ({{ posts | length }} found)
+        {% elif search_query %}
+        Showing results for "<strong>{{ search_query }}</strong>" ({{ posts | length }} found)
+        {% elif selected_tag %}
+        Showing posts tagged with "<strong>{{ selected_tag }}</strong>" ({{ posts | length }} found)
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    {% if posts %}
+    <ul class="post-list">
+        {% for post in posts %}
+        <li class="post-item">
+            <h2 class="post-title">
+                <a href="/posts/{{ post.slug }}">{{ post.frontmatter.title }}</a>
+            </h2>
+            <div class="post-date">{{ post.frontmatter.date }}</div>
+            {% if post.frontmatter.tags %}
+            <div class="post-tags">
+                {% for tag in post.frontmatter.tags %}
+                <a href="/search?tag={{ tag }}" class="tag-link">
+                    <span class="tag">{{ tag }}</span>
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        {% if search_query or selected_tag %}
+        <p>No posts found matching your criteria. <a href="/search">Try a different search</a> or <a href="/">view all posts</a>.</p>
+        {% else %}
+        <p>Use the search form above to find posts by title, content, or tags.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
