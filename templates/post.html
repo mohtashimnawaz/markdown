@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.frontmatter.title }} - Markdown Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .post-meta { color: #666; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .post-content { line-height: 1.6; }
+        .post-content h2 { color: #444; margin-top: 30px; }
+        .post-content h3 { color: #555; }
+        .post-content pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .post-content code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+        .post-content blockquote { border-left: 4px solid #ddd; margin: 0; padding-left: 20px; font-style: italic; }
+        .post-tags { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .tag { background: #e0e0e0; padding: 3px 8px; margin: 2px; border-radius: 3px; font-size: 0.8em; }
+        .back-link { margin-bottom: 20px; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="back-link">
+        <a href="/">← Back to Blog</a>
+    </div>
+    
+    <h1>{{ post.frontmatter.title }}</h1>
+    
+    <div class="post-meta">
+        <div>Published: {{ post.frontmatter.date }}</div>
+        {% if post.frontmatter.tags %}
+        <div style="margin-top: 10px;">
+            {% for tag in post.frontmatter.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="post-content">
+        {{ post.html | safe }}
+    </div>
+</body>
+</html>

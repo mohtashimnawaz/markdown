@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .post-list { list-style: none; padding: 0; }
+        .post-item { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .post-title { margin: 0 0 10px 0; }
+        .post-date { color: #666; font-size: 0.9em; }
+        .post-tags { margin-top: 10px; }
+        .tag { background: #e0e0e0; padding: 3px 8px; margin: 2px; border-radius: 3px; font-size: 0.8em; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>My Markdown Blog</h1>
+    
+    {% if posts %}
+    <ul class="post-list">
+        {% for post in posts %}
+        <li class="post-item">
+            <h2 class="post-title">
+                <a href="/posts/{{ post.slug }}">{{ post.frontmatter.title }}</a>
+            </h2>
+            <div class="post-date">{{ post.frontmatter.date }}</div>
+            {% if post.frontmatter.tags %}
+            <div class="post-tags">
+                {% for tag in post.frontmatter.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No posts found. Add some markdown files to the content/ directory.</p>
+    {% endif %}
+</body>
+</html>
